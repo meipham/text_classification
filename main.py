@@ -109,6 +109,6 @@ model.eval()
 output = model(test_tensor, 1)
 out = F.softmax(output, 1)
 if (torch.argmax(out[0]) == 1):
-    print ("Sentiment: Positive")
+    print ("Is match result: Yes")
 else:
-    print ("Sentiment: Negative")
+    print ("Is match result: No")

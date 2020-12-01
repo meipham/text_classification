@@ -9,7 +9,8 @@ from torchtext import data
 from torchtext import datasets
 from torchtext.vocab import Vectors, GloVe
 
-def load_dataset(test_sen=None):
+def DataLoad(test_sen=None, train_path, test_path, tokenizer, fix_length=100):
+
 
     """
     tokenizer : Breaks sentences into a list of words. If sequential=False, no tokenization is applied
@@ -26,16 +27,13 @@ def load_dataset(test_sen=None):
     
     """
     
-    tokenize = lambda x: x.split()
-    TEXT = data.Field(sequential=True, tokenize=tokenize, lower=True, include_lengths=True, batch_first=True, fix_length=200)
+
+    TEXT = data.Field(sequential=True, tokenize=tokenizer, include_lengths=True, batch_first=True, fix_length)
     LABEL = data.LabelField(tensor_type=torch.FloatTensor)
 
-    # train_data, test_data = datasets.IMDB.splits(TEXT, LABEL)
-
     train_data, test_data = data.TabularDataset.splits(
-        path='.data',
-        train='train.csv',
-        test='test.csv',
+        train=train_path,
+        test=test_path,
         format='csv',
         fields=[('text', TEXT), ('label', LABEL)]
     )

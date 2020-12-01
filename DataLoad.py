@@ -9,7 +9,7 @@ from torchtext import data
 from torchtext import datasets
 from torchtext.vocab import Vectors, GloVe
 
-def DataLoad(test_sen=None, train_path, test_path, tokenizer, fix_length=100):
+def DataLoad(test_sen=None, train_path="", test_path="", tokenizer=None, fix_length=100):
 
 
     """
@@ -28,7 +28,7 @@ def DataLoad(test_sen=None, train_path, test_path, tokenizer, fix_length=100):
     """
     
 
-    TEXT = data.Field(sequential=True, tokenize=tokenizer, include_lengths=True, batch_first=True, fix_length)
+    TEXT = data.Field(sequential=True, tokenize=tokenizer, include_lengths=True, batch_first=True, fix_length=fix_length)
     LABEL = data.LabelField(tensor_type=torch.FloatTensor)
 
     train_data, test_data = data.TabularDataset.splits(
